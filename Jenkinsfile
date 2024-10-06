@@ -65,10 +65,10 @@ pipeline {
                                         cleanRemote: false, 
                                         excludes: '', 
                                         execCommand: '''
-                                        docker pull ${REGISTRY}:${BUILD_NUMBER}
+                                        docker pull ''' + REGISTRY + ''':${BUILD_NUMBER}
                                         docker stop about_me_page_container
                                         docker rm about_me_page_container 
-                                        docker run -d --name about_me_page_container -p 80:80 ${REGISTRY}:${BUILD_NUMBER}
+                                        docker run -d --name about_me_page_container -p 80:80 ''' + REGISTRY + ''':${BUILD_NUMBER}
                                         ''', 
                                         execTimeout: 120000, 
                                         flatten: false, 
