@@ -3,7 +3,7 @@ pipeline {
 
     environment { 
 
-        registry = "krishanudb/about_me_page" 
+        REGISTRY = "krishanudb/about_me_page" 
         registryCredential = 'da1b9a03-322b-4ae9-916f-8b5174433199' 
         dockerImage = 'about_me_page' 
         EC2_USER = 'ec2-user'
@@ -28,7 +28,7 @@ pipeline {
 
                 script { 
 
-                    dockerImage = docker.build(registry + ":$BUILD_NUMBER") 
+                    dockerImage = docker.build(REGISTRY + ":$BUILD_NUMBER") 
 
                 }
 
@@ -65,10 +65,10 @@ pipeline {
                                         cleanRemote: false, 
                                         excludes: '', 
                                         execCommand: '''
-                                        docker pull ${registry}:${BUILD_NUMBER}
+                                        docker pull ${REGISTRY}:${BUILD_NUMBER}
                                         docker stop about_me_page_container
                                         docker rm about_me_page_container 
-                                        docker run -d --name about_me_page_container -p 80:80 ${registry}:${BUILD_NUMBER}
+                                        docker run -d --name about_me_page_container -p 80:80 ${REGISTRY}:${BUILD_NUMBER}
                                         ''', 
                                         execTimeout: 120000, 
                                         flatten: false, 
