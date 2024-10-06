@@ -4,11 +4,10 @@ pipeline {
     environment { 
 
         registry = "krishanudb/about_me_page" 
-
         registryCredential = 'da1b9a03-322b-4ae9-916f-8b5174433199' 
-
         dockerImage = 'about_me_page' 
-
+        EC2_USER = 'ec2-user'
+        EC2_HOST = '107.23.235.120'
     }
 
     stages { 
@@ -37,7 +36,7 @@ pipeline {
 
         }
 
-        stage('Deploy our image') { 
+        stage('Push new image to Registry') { 
 
             steps { 
 
@@ -54,9 +53,40 @@ pipeline {
             }
 
         }
-        stage ("Last Step Done") {
+        stage ("Pull Image and Start Container") {
             steps {
-                sh 'echo "Last Step Done"'
+                script {
+                    sshPublisher(
+                        publishers: [
+                            sshPublisherDesc(
+                                configName: 'dockerHost', 
+                                transfers: [
+                                    sshTransfer(
+                                        cleanRemote: false, 
+                                        excludes: '', 
+                                        execCommand: '''
+                                        docker pull ${dockerImage}:latest && \
+                                        docker stop about_me_page_container || true && \
+                                        docker rm about_me_page_container || true && \
+                                        docker run -d --name about_me_page_container -p 80:80 ${dockerImage}:latest
+                                        ''', 
+                                        execTimeout: 120000, 
+                                        flatten: false, 
+                                        makeEmptyDirs: false, 
+                                        noDefaultExcludes: false, 
+                                        patternSeparator: '[, ]+', 
+                                        remoteDirectory: '', 
+                                        remoteDirectorySDF: false, 
+                                        removePrefix: '', 
+                                        sourceFiles: '')
+                                    ], 
+                                usePromotionTimestamp: false, 
+                                useWorkspaceInPromotion: false, 
+                                verbose: true
+                            )
+                        ]
+                    )
+                }
             }
         }
 
