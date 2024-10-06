@@ -12,7 +12,7 @@ const Home = () => {
     <div className="max-w-screen-2xl mx-auto flex flex-col items-center justify-center h-full px-4 md:flex-row">
       <div className="flex flex-col justify-center h-full">
         <h4 className="text-2xl sm:text-3xl font-bold text-white">
-          Hey, I am Krish
+          Hey, I am Krishanu.
         </h4>
         {/* <h4 className="text-2xl sm:text-3xl font-bold text-white">
           Welcome to my page.
