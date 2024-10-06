@@ -53,7 +53,7 @@ pipeline {
             }
 
         }
-        stage ("Pull Image and Start Container") {
+        stage ("Pull Image and Start  Container") {
             steps {
                 script {
                     sshPublisher(
