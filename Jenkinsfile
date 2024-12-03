@@ -59,7 +59,7 @@ pipeline {
                     sshPublisher(
                         publishers: [
                             sshPublisherDesc(
-                                configName: 'dockerHost', 
+                                configName: 'DockerHost', 
                                 transfers: [
                                     sshTransfer(
                                         cleanRemote: false, 
