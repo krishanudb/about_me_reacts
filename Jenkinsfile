@@ -4,7 +4,7 @@ pipeline {
     environment { 
 
         REGISTRY = "krishanudb/about_me_page" 
-        registryCredential = 'da1b9a03-322b-4ae9-916f-8b5174433199' 
+        registryCredential = 'jenkins-dockerhub-login-credentials'
         dockerImage = 'about_me_page' 
         EC2_USER = 'ec2-user'
         EC2_HOST = '107.23.235.120'
