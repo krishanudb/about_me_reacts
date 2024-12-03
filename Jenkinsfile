@@ -16,7 +16,7 @@ pipeline {
 
             steps { 
 
-               git branch: 'main', credentialsId: '844d30b0-2978-427f-ab39-3b0d2e14bfd7', url: 'https://github.com/krishanudb/about_me_reacts.git'
+               git branch: 'main', credentialsId: 'github-login-credentials', url: 'https://github.com/krishanudb/about_me_reacts.git'
 
             }
 
